@@ -89,7 +89,11 @@ def move_paddle():
 #   (évite que la balle reste bloquée dans la raquette)
 
 def check_paddle_collision():
-    pass  # À compléter
+    ball_rect = pygame.Rect(ball_dict["x"], ball_dict["y"], BALL_SIZE[0], BALL_SIZE[1])
+    paddle_rect = pygame.Rect(paddle_dict["x"], paddle_dict["y"], PADDLE_WIDTH, PADDLE_HEIGHT)
+    isColliding = rects_collide(ball_rect, paddle_rect)
+    if isColliding:
+        ball_dict["dy"] *= -1
 
 
 # ======================== PARTIE 4.2 ========================
@@ -105,8 +109,18 @@ def check_paddle_collision():
 # - Ajouter les points de la brique au score : ball_dict["score"] += brick["points"]
 # - Inverser dy (ball_dict["dy"] *= -1)
 # - Arrêter la boucle (utiliser break) pour ne toucher qu'une brique à la fois
+    
 
 def check_brick_collision():
+    rect_ball = pygame.Rect(ball_dict["x"], ball_dict["y"], BALL_SIZE[0], BALL_SIZE[1])
+    for brick in BRICKS:
+        rect_brick = pygame.Rect(brick["x"], brick["y"], brick["width"], brick["height"])
+        isColliding = rects_collide(rect_ball, rect_brick)
+        if isColliding:
+            brick["active"] = False
+            ball_dict["score"] += brick["points"]
+            ball_dict["dy"] *= -1
+            break
     pass  # À compléter
 
 
@@ -118,7 +132,7 @@ def check_brick_collision():
 # Astuce : utilisez la fonction all() avec une expression génératrice.
 
 def check_win():
-    pass  # À compléter (retourner True ou False)
+    return all(brick["active"] for brick in BRICKS)
 
 
 # ── Fonction utilitaire (ne pas modifier) ───────────────────

@@ -14,8 +14,8 @@ from config import BALL_SIZE, BALL_SPEED_X, BALL_SPEED_Y, SCREEN_WIDTH, SCREEN_H
 
 
 
-ball_img= pygame.image.load("path to assets/ball.png")
-ball_img=pygame.transform.scale(ball_img, BALL_SIZE)
+ball_img = pygame.image.load("assets/ball.png")
+ball_img = pygame.transform.scale(ball_img, BALL_SIZE)
 None  # À remplacer par l'image chargée et redimensionnée
 # ======================== PARTIE 1.2 ========================
 # TODO : Initialiser les valeurs dans le dictionnaire « ball_dict »
@@ -28,6 +28,12 @@ None  # À remplacer par l'image chargée et redimensionnée
 # - "dy"    : vitesse verticale (utiliser BALL_SPEED_Y)
 # - "lives" : nombre de vies (utiliser LIVES)
 # - "score" : score initial (commence à 0)
-ball_dict={}
-ball_dict.update({"x":SCREEN_WIDTH//2,"y":SCREEN_HEIGHT//2,"dx":BALL_SPEED_X,"dy":BALL_SPEED_Y,
-                  "lives":LIVES,"score":0})
+ball_dict.update(
+    {
+        "x": SCREEN_WIDTH / 2,
+        "y": SCREEN_HEIGHT / 2,
+        "dx": BALL_SPEED_X,
+        "dy": BALL_SPEED_Y,
+        "lives": LIVES,
+        "score": 0
+    })
