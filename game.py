@@ -37,7 +37,7 @@ def bounce_walls():
     if ball_dict["x"]+ BALL_SIZE[0] >= SCREEN_WIDTH:
         ball_dict["dx"]*=-1
     if ball_dict["y"]<=0:
-        ball_dict["dx"]*=-1
+        ball_dict["dy"]*=-1
     pass  # À compléter
 
 
@@ -49,7 +49,7 @@ def bounce_walls():
 # Rappel : le bas de la balle = ball_dict["y"] + BALL_SIZE[1]
 
 def check_floor():
-    if ball_dict["y"] + BALL_SIZE[1]>SCREEN_HEIGHT:
+    if ball_dict["y"] + BALL_SIZE[1]>=SCREEN_HEIGHT:
         return True
     else:
         return False
@@ -94,7 +94,7 @@ def check_paddle_collision():
     isColliding = rects_collide(ball_rect, paddle_rect)
     if isColliding:
         ball_dict["dy"] *= -1
-
+        ball_dict["dy"] = -abs(ball_dict["dy"])
 
 # ======================== PARTIE 4.2 ========================
 # TODO : Détecter la collision entre la balle et les briques
@@ -112,8 +112,9 @@ def check_paddle_collision():
     
 
 def check_brick_collision():
-    rect_ball = pygame.Rect(ball_dict["x"], ball_dict["y"], BALL_SIZE[0], BALL_SIZE[1])
+    
     for brick in BRICKS:
+        rect_ball = pygame.Rect(ball_dict["x"], ball_dict["y"], BALL_SIZE[0], BALL_SIZE[1])
         rect_brick = pygame.Rect(brick["x"], brick["y"], brick["width"], brick["height"])
         isColliding = rects_collide(rect_ball, rect_brick)
         if isColliding:
@@ -132,7 +133,7 @@ def check_brick_collision():
 # Astuce : utilisez la fonction all() avec une expression génératrice.
 
 def check_win():
-    return all(brick["active"] for brick in BRICKS)
+    return all(not brick["active"] for brick in BRICKS)
 
 
 # ── Fonction utilitaire (ne pas modifier) ───────────────────

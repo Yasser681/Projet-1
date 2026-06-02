@@ -41,7 +41,7 @@ def restart_game():
 
     paddle_dict["x"] = (SCREEN_WIDTH - PADDLE_WIDTH) // 2
     BRICKS.clear()
-    BRICKS.clear()
+    BRICKS.extend(generate_bricks())
 # ======================== PARTIE 5.2 ========================
 # TODO : Boucle principale du jeu
 # Structure générale de la boucle while running :
@@ -90,10 +90,11 @@ while running:
     # À compléter
     game_over = ball_dict["lives"] <= 0
     victoire  = check_win()
-    if game_over is True:
+    if game_over:
        show_game_over_message()
        continue
-    elif victoire is True:
+
+    if victoire:
        show_win_message()
        continue
     # ── Logique du jeu ───────────────────────────────────────

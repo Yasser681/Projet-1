@@ -66,3 +66,4 @@ def generate_bricks():
         }
         for row in range(BRICK_ROWS)
         for col in range(BRICK_COLS)]
+
