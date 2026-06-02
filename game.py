@@ -17,8 +17,8 @@ from config import (
 # - Ajouter « dy » à la position « y » de la balle
 
 def move_ball():
-    ball_dict["x"]+=BALL_SPEED_X
-    ball_dict["y"]+=BALL_SPEED_Y
+    ball_dict["x"] += ball_dict["dx"]
+    ball_dict["y"] += ball_dict["dy"]
 
 
 # ======================== PARTIE 3.2 ========================
@@ -114,6 +114,8 @@ def check_paddle_collision():
 def check_brick_collision():
     rect_ball = pygame.Rect(ball_dict["x"], ball_dict["y"], BALL_SIZE[0], BALL_SIZE[1])
     for brick in BRICKS:
+        if not brick["active"]:
+            continue
         rect_brick = pygame.Rect(brick["x"], brick["y"], brick["width"], brick["height"])
         isColliding = rects_collide(rect_ball, rect_brick)
         if isColliding:
@@ -121,7 +123,6 @@ def check_brick_collision():
             ball_dict["score"] += brick["points"]
             ball_dict["dy"] *= -1
             break
-    pass  # À compléter
 
 
 # ======================== PARTIE 4.3 ========================
@@ -132,7 +133,7 @@ def check_brick_collision():
 # Astuce : utilisez la fonction all() avec une expression génératrice.
 
 def check_win():
-    return all(brick["active"] for brick in BRICKS)
+    return all(not brick["active"] for brick in BRICKS)
 
 
 # ── Fonction utilitaire (ne pas modifier) ───────────────────
