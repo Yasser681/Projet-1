@@ -30,8 +30,8 @@ None  # À remplacer par l'image chargée et redimensionnée
 # - "score" : score initial (commence à 0)
 ball_dict.update(
     {
-        "x": SCREEN_WIDTH / 2,
-        "y": SCREEN_HEIGHT / 2,
+        "x": SCREEN_WIDTH // 2,
+        "y": SCREEN_HEIGHT // 2,
         "dx": BALL_SPEED_X,
         "dy": BALL_SPEED_Y,
         "lives": LIVES,

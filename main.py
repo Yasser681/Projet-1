@@ -2,7 +2,7 @@
 
 import pygame
 import sys
-from config import FPS, LIVES, SCREEN_WIDTH, SCREEN_HEIGHT, BALL_SPEED_X, BALL_SPEED_Y, BRICKS, ball_dict, paddle_dict, PADDLE_Y
+from config import FPS, LIVES, SCREEN_WIDTH, SCREEN_HEIGHT, BALL_SPEED_X, BALL_SPEED_Y, BRICKS, ball_dict, paddle_dict, PADDLE_Y,PADDLE_WIDTH
 from window import draw_window, show_game_over_message, show_win_message
 from game   import move_ball, bounce_walls, check_floor, move_paddle, check_paddle_collision, check_brick_collision, check_win
 from bricks import generate_bricks
@@ -30,8 +30,18 @@ BRICKS.extend(generate_bricks())
 
 def restart_game():
     pass  # À compléter
+    ball_dict["x"] = SCREEN_WIDTH // 2 
+    ball_dict["y"] = SCREEN_HEIGHT // 2
+    
+    ball_dict["dx"]=BALL_SPEED_X
+    ball_dict["dy"]=BALL_SPEED_Y
 
+    ball_dict["lives"]=LIVES
+    ball_dict["score"]=0
 
+    paddle_dict["x"] = (SCREEN_WIDTH - PADDLE_WIDTH) // 2
+    BRICKS.clear()
+    BRICKS.clear()
 # ======================== PARTIE 5.2 ========================
 # TODO : Boucle principale du jeu
 # Structure générale de la boucle while running :
@@ -68,19 +78,38 @@ def restart_game():
 
 while running:
     clock.tick(FPS)
-
     # ── Événements ──────────────────────────────────────────
     for event in pygame.event.get():
-        pass  # À compléter
+        if event.type==pygame.QUIT:
+         running=False
+        if event.type==pygame.KEYDOWN:
+         if event.key==pygame.K_r:
+           restart_game()
 
     # ── État de fin de partie ────────────────────────────────
-    pass  # À compléter
-
+    # À compléter
+    game_over = ball_dict["lives"] <= 0
+    victoire  = check_win()
+    if game_over is True:
+       show_game_over_message()
+       continue
+    elif victoire is True:
+       show_win_message()
+       continue
     # ── Logique du jeu ───────────────────────────────────────
-    pass  # À compléter
+    move_paddle()
+    move_ball()
+    bounce_walls()
+    check_paddle_collision()
+    check_brick_collision()  
 
     # ── Chute de la balle ────────────────────────────────────
-    pass  # À compléter
+    if check_floor()==True:
+       ball_dict["lives"] -= 1
+       ball_dict["x"] = SCREEN_WIDTH // 2 
+       ball_dict["y"] = SCREEN_HEIGHT // 2
+       ball_dict["dx"] = BALL_SPEED_X 
+       ball_dict["dy"] = BALL_SPEED_Y 
 
     draw_window()
 

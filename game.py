@@ -34,7 +34,7 @@ def move_ball():
 def bounce_walls():
     if ball_dict["x"]<=0:
         ball_dict["dx"] *= -1
-    if ball_dict["x"]+ BRICK_WIDTH >= SCREEN_WIDTH:
+    if ball_dict["x"]+ BALL_SIZE[0] >= SCREEN_WIDTH:
         ball_dict["dx"]*=-1
     if ball_dict["y"]<=0:
         ball_dict["dx"]*=-1
