@@ -112,7 +112,7 @@ def check_paddle_collision():
     
 
 def check_brick_collision():
-    
+    rect_ball = pygame.Rect(ball_dict["x"], ball_dict["y"], BALL_SIZE[0], BALL_SIZE[1])
     for brick in BRICKS:
         if not brick["active"]:
             continue
